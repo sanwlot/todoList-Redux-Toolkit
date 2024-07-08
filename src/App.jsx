@@ -1,6 +1,6 @@
-import "./App.css";
-import AddTodo from "./components/AddTodo";
-import Todos from "./components/Todos";
+import "./App.css"
+import AddTodo from "./components/AddTodo"
+import Todos from "./components/Todos"
 
 export default function App() {
   return (
@@ -8,5 +8,5 @@ export default function App() {
       <AddTodo />
       <Todos />
     </main>
-  );
+  )
 }

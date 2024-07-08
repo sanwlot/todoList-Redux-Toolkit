@@ -1,22 +1,22 @@
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { deleteTodo, updateTodo, toggleDone } from "../features/todosSlice";
+import { useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { deleteTodo, updateTodo, toggleDone } from "../features/todosSlice"
 
 export default function Todos() {
-  const todos = useSelector((state) => state.todos.todos);
-  const dispatch = useDispatch();
+  const todos = useSelector((state) => state.todos.todos)
+  const dispatch = useDispatch()
 
-  const [updatedTodo, setUpdatedTodo] = useState({});
-  const [isEditing, setIsEditing] = useState(false);
-  const [editId, setEditId] = useState(null);
+  const [updatedTodo, setUpdatedTodo] = useState({})
+  const [isEditing, setIsEditing] = useState(false)
+  const [editId, setEditId] = useState(null)
 
   function handleUpdate() {
-    dispatch(updateTodo(updatedTodo));
-    setIsEditing(false);
-    setUpdatedTodo({});
+    dispatch(updateTodo(updatedTodo))
+    setIsEditing(false)
+    setUpdatedTodo({})
   }
 
-  const sortedTodos = [...todos].sort((a, b) => b.createdAt - a.createdAt);
+  const sortedTodos = [...todos].sort((a, b) => b.createdAt - a.createdAt)
   const todosEl = sortedTodos.map((todo) => (
     <li className="list-group-item" key={todo.id}>
       <div className="d-flex justify-content-between align-items-center">
@@ -31,6 +31,7 @@ export default function Todos() {
           {todo.text}
         </strong>
         <div>
+          {/* only show the update input when isEditing is true and editId matches todo.id */}
           {isEditing && editId === todo.id ? (
             <div className="input-group">
               <input
@@ -39,7 +40,7 @@ export default function Todos() {
                 className="form-control"
                 onChange={(e) =>
                   setUpdatedTodo({
-                    ...todo, // todo id is included in the object
+                    ...todo, // todo id is included in the spread
                     text: e.target.value,
                     createdAt: Date.now(),
                   })
@@ -57,8 +58,8 @@ export default function Todos() {
               <button
                 className="btn btn-outline-secondary"
                 onClick={() => {
-                  setIsEditing(true);
-                  setEditId(todo.id);
+                  setIsEditing(true)
+                  setEditId(todo.id)
                 }}
               >
                 Update
@@ -74,7 +75,7 @@ export default function Todos() {
         </div>
       </div>
     </li>
-  ));
+  ))
 
-  return <ul className="list-group">{todosEl}</ul>;
+  return <ul className="list-group">{todosEl}</ul>
 }
