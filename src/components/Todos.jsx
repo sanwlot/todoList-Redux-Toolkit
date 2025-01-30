@@ -7,13 +7,12 @@ export default function Todos() {
   const dispatch = useDispatch()
 
   const [updatedTodo, setUpdatedTodo] = useState({})
-  const [isEditing, setIsEditing] = useState(false)
   const [editId, setEditId] = useState(null)
 
   function handleUpdate() {
     dispatch(updateTodo(updatedTodo))
-    setIsEditing(false)
     setUpdatedTodo({})
+    setEditId(null)
   }
 
   const sortedTodos = [...todos].sort((a, b) => b.createdAt - a.createdAt)
@@ -31,8 +30,8 @@ export default function Todos() {
           {todo.text}
         </strong>
         <div>
-          {/* only show the update input when isEditing is true and editId matches todo.id */}
-          {isEditing && editId === todo.id ? (
+          {/* only show the update input when editId matches todo.id */}
+          {editId === todo.id ? (
             <div className="input-group">
               <input
                 type="text"
@@ -57,10 +56,7 @@ export default function Todos() {
             <div className="btn-group">
               <button
                 className="btn btn-outline-secondary"
-                onClick={() => {
-                  setIsEditing(true)
-                  setEditId(todo.id)
-                }}
+                onClick={() => setEditId(todo.id)}
               >
                 Update
               </button>
